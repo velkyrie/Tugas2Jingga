@@ -1,62 +1,63 @@
-# Template Proyek Django PBP
+# Lab 1 - Vladi Jingga Mentari (2106635631)
 
-Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
+[Akses tugas di aplikasi Heroku (bagian katalog)](tugas2jingga.herokuapp.com/katalog)
 
-*Read this in other languages: [Indonesian](README.md), [English](README.en.md)*
+## Bagan _Request and Response Cycle_ Django 
 
-## Pendahuluan
+![Bagan Request and Response Cycle](https://user-images.githubusercontent.com/52811288/190280167-bbcca061-2a00-4649-b82e-199f73d8d0d9.png)
 
-Repositori ini merupakan sebuah template yang dirancang untuk membantu mahasiswa yang sedang mengambil mata kuliah Pemrograman Berbasis Platform (CSGE602022) mengetahui struktur sebuah proyek aplikasi Django serta file dan konfigurasi yang penting dalam berjalannya aplikasi. Kamu dapat dengan bebas menyalin isi dari repositori ini atau memanfaatkan repositori ini sebagai pembelajaran sekaligus awalan dalam membuat sebuah proyek Django.
+Ketika ada _HTTP request_ yang masuk dari _client/user_, Django memiliki cara kerja tersendiri untuk merespon _request_ tersebut.
+1. _Request_ dikirim oleh _client/user_, masuk ke server Django, dan diproses melalui URL Configuration (URLconf) `urls.py`. urls.py berisikan kode yang digunakan oleh Django untuk mencocokkan _request_ URL untuk mencari _views_ yang cocok. Lebih spesifiknya, URL yang di-_request_ akan dicocokkan dengan _path_ di potongan kode `urlpatterns`
+```python
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('example_app.urls')),
+    path('katalog/', include('katalog.urls'))
+]
+```
 
-## Cara Menggunakan
+2. Setelah URL dicocokkan, _request_ akan diteruskan ke `views.py`, yang berisi kode untuk mendefinisikan _request_
+3. Jika terdapat proses atau aktivitas yang melibatkan Database, maka `views.py` akan memanggil _query_ ke `models.py` dan melanjutkannya ke Database untuk memproses data
+4. Setelah data diproses, respon berupa hasil _query_ akan dikembalikan ke `views`
+5. Setelah _request_ selesai diproses, `View` akan memilih dan memetakan `file html` yang sudah didefinisikan sebelumnya di _return block_ `views.py`
+6. Tampilan web dalam bentuk HTML dikembalikan ke _user/client_ sebagai respon dari _request_ 
 
-Apabila kamu ingin menggunakan repositori ini sebagai repositori awalan yang nantinya akan kamu modifikasi:
+## Mengapa kita menggunakan _Virtual Environment?_
 
-1. Buka laman GitHub repositori templat kode, lalu klik tombol "**Use this template**"
-   untuk membuat salinan repositori ke dalam akun GitHub milikmu.
-2. Buka laman GitHub repositori yang dibuat dari templat, lalu gunakan perintah
-   `git clone` untuk menyalin repositorinya ke suatu lokasi di dalam sistem
-   berkas (_filesystem_) komputermu:
+_Virtual environment_ adalah alat yang membantu memisahkan/mengisolasi tiap proyek Django ke dalam _environment_ masing-masing. _Virtual environment_ digunakan untuk menghindari konflik antar _dependencies_ (_packages_ atau _library_  eksternal) yang digunakan. Konflik dapat terjadi karena secara _default_, setiap _project_ akan menggunakan _directories_ yang sama untuk menyimpan dan mengambil _site packages_, dan tiap proyek dapat menggunakan versi _dependencies_ yang berbeda. Hal ini menjadi masalah karena Python tidak bisa membedakan versi pada direktori _site-packages_. Selain itu, _virtual environment_ akan mengisolasi tiap proyek ke _environment_-nya sendiri sehingga perubahan yang dilakukan pada satu proyek tidak akan memengaruhi proyek lainnya. Oleh karena itu, penggunaan _virtual environment_ pada tiap proyek Django lebih baik dilakukan. 
 
-   ```shell
-   git clone <URL ke repositori di GitHub> <path ke suatu lokasi di filesystem>
-   ```
-3. Masuk ke dalam repositori yang sudah di-_clone_ dan jalankan perintah berikut
-   untuk menyalakan _virtual environment_:
+Pengembangan proyek Django dan Python pada umumnya sebenarnya bisa dilakukan tanpa _virtual environment_, akan tetapi akan sulit jika memiliki banyak proyek karena konflik bisa terjadi dan tentunya akan menghambat proses pengembangan.
 
-   ```shell
-   python -m venv env
-   ```
-4. Nyalakan environment dengan perintah berikut:
+## Penjelasan Implementasi
 
-   ```shell
-   # Windows
-   .\env\Scripts\activate
-   # Linux/Unix, e.g. Ubuntu, MacOS
-   source env/bin/activate
-   ```
-5. Install dependencies yang dibutuhkan untuk menjalankan aplikasi dengan perintah berikut:
+1. Pada `views.py`, buat fungsi untuk melakukan _request_ yaitu untuk mengambil data dari _models_ dan mengembalikannya dalam bentuk HTML
+```python
+from katalog.models import CatalogItem
 
-   ```shell
-   pip install -r requirements.txt
-   ```
-
-6. Jalankan aplikasi Django menggunakan server pengembangan yang berjalan secara
-   lokal:
-
-   ```shell
-   python manage.py runserver
-   ```
-7. Bukalah `http://localhost:8000` pada browser favoritmu untuk melihat apakah aplikasi sudah berjalan dengan benar.
-
-## Contoh Deployment 
-
-Pada template ini, deployment dilakukan dengan memanfaatkan GitHub Actions sebagai _runner_ dan Heroku sebagai platform Hosting aplikasi. 
-
-Untuk melakukan deployment, kamu dapat melihat instruksi yang ada pada [Tutorial 0](https://pbp-fasilkom-ui.github.io/ganjil-2023/assignments/tutorial/tutorial-0).
-
-Untuk contoh aplikasi Django yang sudah di deploy, dapat kamu akses di [https://django-pbp-template.herokuapp.com/](https://django-pbp-template.herokuapp.com/)
-
-## Credits
-
-Template ini dibuat berdasarkan [PBP Ganjil 2021](https://gitlab.com/PBP-2021/pbp-lab) yang ditulis oleh Tim Pengajar Pemrograman Berbasis Platform 2021 ([@prakashdivyy](https://gitlab.com/prakashdivyy)) dan [django-template-heroku](https://github.com/laymonage/django-template-heroku) yang ditulis oleh [@laymonage, et al.](https://github.com/laymonage). Template ini dirancang sedemikian rupa sehingga mahasiswa dapat menjadikan template ini sebagai awalan serta acuan dalam mengerjakan tugas maupun dalam berkarya.
+def show_katalog(request):
+    data_barang_katalog = CatalogItem.objects.all()
+    context = { 
+        'list_item': data_barang_katalog,
+        'nama': 'Vladi Jingga Mentari',
+        'student_id': '2106635631'
+    }
+    return render(request, "katalog.html", context)
+```
+Untuk menghubungkan View dan data dari Model, penting meng-_import_ data dari model. Data diambil dari:
+```python
+ data_barang_katalog = CatalogItem.objects.all()
+ ```
+ 2. Fungsi yang telah dibuat di `views.py` dipetakan dengan kode untuk _routing_ pada `urls.py` baik pada [katalog](katalog) maupun [project_django](project_django). Dengan kode _routing_, fungsi `show_katalog(request)` akan dipanggil ketika _client/user_ melakukan _request_ terhadap URL katalog
+ - Tambahkan di `urlpatterns` pada direktori [katalog](katalog)
+ ```python
+    path('', show_katalog, name='show_katalog'),
+ ```
+ - Tambahkan di `urlpatterns` pada direktori [project_django](project_django)
+ ```python
+     path('katalog/', include('katalog.urls'))
+ ```
+ 3. Pemetaan data yang didapatkan ke HTML dilakukan dengan menambahkan sintaks `context` pada _return block_ fungsi `show_katalog(request)` di `views.py`
+ ```python
+ return render(request, "katalog.html", context)
+ ```
+ 4. Deployment dilakukan dengan membuat aplikasi Heroku. Untuk _set-up_, tambahkan _repository secret_ di Github dengan pasangan nama aplikasi dan API key akun Heroku. Setelah _set-up_ selesai, lakukan _command_ `add`, `commit`, `push`, dan aplikasi akan dideploy.
