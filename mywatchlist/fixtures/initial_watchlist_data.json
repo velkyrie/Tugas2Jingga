@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 1,
+        "fields": {
+            "watched": true,
+            "title": "Everything Everywhere All At Once",
+            "rating": 4.8,
+            "release_date": "June 22, 2022",
+            "review": "So far the best execution for a Multiverse theme. An emotional rollercoaster, with top notch humor and scenes that will make you cry multiple times. "
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 2,
+        "fields": {
+            "watched": true,
+            "title": "Pride and Prejudice",
+            "rating": 4.5,
+            "release_date": "September 16, 2005",
+            "review": "Beautiful execution of a Jane Austen Classic, with superb acting from the casts."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 3,
+        "fields": {
+            "watched": false,
+            "title": "Chungking Express",
+            "rating": 4.2,
+            "release_date": "July 14, 1994",
+            "review": "Chungking Express is a 1994 Hong Kong romantic crime comedy-drama film written and directed by Wong Kar-wai. The film consists of two stories told in sequence, each about a lovesick Hong Kong policeman mulling over his relationship with a woman."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 4,
+        "fields": {
+            "watched": true,
+            "title": "Arrival",
+            "rating": 4.5,
+            "release_date": "January 4, 2017",
+            "review": "Intense and emotional, with a plot that will keep your head guessing."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 5,
+        "fields": {
+            "watched": true,
+            "title": "The Perks of Being a Wallflower",
+            "rating": 4,
+            "release_date": "September 21, 2012",
+            "review": "A memorable coming-of-age movie that holds a special place in my heart."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 6,
+        "fields": {
+            "watched": true,
+            "title": "Love, Rosie",
+            "rating": 4,
+            "release_date": "October 22, 2014",
+            "review": "Will take you to a journey of being in a 'Right-Person-Wrong-Time' slowburn. Heartwrenching, tearjerking."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 7,
+        "fields": {
+            "watched": true,
+            "title": "The Secret Life of Walter Mitty",
+            "rating": 4.3,
+            "release_date": "December 25, 2013",
+            "review": "Walter Mitty embarks on an adventure of a lifetime, and the feel of thrill and freedom can be felt through the screen."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 8,
+        "fields": {
+            "watched": false,
+            "title": "2001: A Space Odyssey",
+            "rating": 4.3,
+            "release_date": "April 2, 1968",
+            "review": "After discovering a monolith on the lunar surface, the Discovery One and its revolutionary supercomputer set out to unravel its mysterious origin."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 9,
+        "fields": {
+            "watched": false,
+            "title": "Back to the Future",
+            "rating": 4.5,
+            "release_date": "July 3, 1985",
+            "review": "Marty travels back in time using an eccentric scientist's time machine. However, he must make his high-school-aged parents fall in love in order to return to the present."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 10,
+        "fields": {
+            "watched": true,
+            "title": "Isle of Dogs",
+            "rating": 4.2,
+            "release_date": "March 23, 2018",
+            "review": "A Wes Anderson stop-motion has never gone wrong."
+        }
+    }
+]
