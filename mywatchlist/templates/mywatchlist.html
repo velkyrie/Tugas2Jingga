@@ -29,6 +29,11 @@
         <th>{{item.review}}</th>
     </tr>
     {% endfor %}
+    {% if x >= y %}
+    <p>Selamat, kamu sudah banyak menonton!!</p>
+    {% else %}
+    <p>Wah, kamu masih sedikit menonton!</p>
+    {% endif %}
   </table>
 
  {% endblock content %}
