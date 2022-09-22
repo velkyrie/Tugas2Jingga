@@ -64,6 +64,8 @@ Untuk menghubungkan View dan data dari Model, penting meng-_import_ data dari mo
 
 # Tugas 3 - Vladi Jingga Mentari (2106635631)
 
+https://tugas2jingga.herokuapp.com/mywatchlist/html/
+
 ## Apa saja perbedaan JSON, XML, dan HTML?
 
 **HTML**
