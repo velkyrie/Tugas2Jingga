@@ -1,4 +1,4 @@
-# Lab 1 - Vladi Jingga Mentari (2106635631)
+# Tugas 2 - Vladi Jingga Mentari (2106635631)
 
 [Akses tugas di aplikasi Heroku (bagian katalog)](tugas2jingga.herokuapp.com/katalog)
 
@@ -61,3 +61,168 @@ Untuk menghubungkan View dan data dari Model, penting meng-_import_ data dari mo
  return render(request, "katalog.html", context)
  ```
  4. Deployment dilakukan dengan membuat aplikasi Heroku. Untuk _set-up_, tambahkan _repository secret_ di Github dengan pasangan nama aplikasi dan API key akun Heroku. Setelah _set-up_ selesai, lakukan _command_ `add`, `commit`, `push`, dan aplikasi akan dideploy.
+
+# Tugas 3 - Vladi Jingga Mentari (2106635631)
+
+## Apa saja perbedaan JSON, XML, dan HTML?
+
+**HTML**
+HTML (_Hyper Text Markup Language_) adalah bahasa _markup_ yang digunakan sebagai _building block_ untuk membangun sebuah web. HTML digunakan untuk men-_display_ data dalam berbagai bentuk (teks, gambar, dsb.) di internet. HTML juga mendefinisikan arti dan struktur dari sebuah konten web. 
+
+HTML hanya menampilkan data, sedangkan data yang ditampilkan oleh HTML dapat berupa JSON atau HTML.
+
+**JSON**
+JSON (_Javascript Object Notation_) adalah format yang digunakan untuk menyimpan dan mentransmisikan data, yaitu sebagai pasangan _key-value_ dan _array_. JSON didasari oleh bahasa JavaScript dan cenderung mudah untuk dipahami dan di-_generate_. 
+
+**XML**
+XML (_eXtensible Markup Language_) adalah bahasa _markup_ yang digunakan untuk menyimpan data. Berbeda dengan HTML yang juga merupakan bahasa _markup_, XML tidak memiliki _tags_ yang sudah terdefinisi. XML adalah format berbasis teks sederhana untuk merepresentasikan informasi terstruktur. Selain itu, XML juga menyediakan _namespace support_.
+
+
+| JSON        | XML           | HTML  |
+| ------------- |:-------------:| -----:|
+| digunakan untuk men-_carry_ data    | digunakan untuk men-_carry_ data | digunakan untuk menampilkan data |
+| diturunkan dari JavaScript     | diturunkan dari SGML      |   diturunkan dari SGML |
+| dinamik | dinamik      |    statis |
+| tidak menggunakan tags | menggunakan tags yang didefinikan user      |    menggunakan tags _pre-defined_ |
+| tidak men-_support _comments_ | men-_support_ _comments_    |  men-_support_ _comments_  |
+
+## Mengapa kita memerlukan _Data Delivery_ dalam implementasi platform?
+
+Penggunaan data dapat dibilang tak terpisahkan dari implementasi platform. _Data delivery_ sangat penting karena diperlukan untuk mengirimkan data dari satu stack ke stack lainnya. Contohnya, dalam implementasi platform, _Client_ dapat me-_request_ data ke _server_ dan data tersebut perlu dikirim ke _client_ sebagai respon. _Data delivery_ juga dapat menghemat ruang penyimpanan karena umumnya ada beberapa _file_ atau data yang tidak disimpan di _server_ melainkan di-_generate_ oleh program dengan XML dan JSON.
+
+## Implementasi Tugas 3
+1. Buat aplikasi Django **mywatchlist** dengan _command_ `python3 manage.py startapp mywatchlist`
+2. Di [settings.py] pada project_django, tambahkan app baru **mywatchlist** ke list `INSTALLED_APPS`
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'example_app',
+    'katalog',
+    'mywatchlist',
+]
+```
+3. Implementasi _routing_ pada aplikasi baru agar bisa diakses _localhost_ dengan mendaftarkan **mywatchlist** ke list `urlpatterns` di [project_django/urls.py].
+```python
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('katalog/', include('katalog.urls')),
+    path('mywatchlist/', include('mywatchlist.urls')),
+]
+```
+4. Buat `class` model di [mywatchlist/models.py] 
+``` python
+class MyWatchlist(models.Model):
+    watched = models.BooleanField(default=False)
+    title = models.CharField(max_length=255)
+    rating = models.FloatField()
+    release_date = models.CharField(max_length=255)
+    review = models.TextField()
+ ```
+ 5. Lakukan `makemigrations` dan `migrate` ke _database_ Django lokal
+```python
+python3 manage.py makemigrations
+```
+```python
+python3 manage.py migrate
+```
+
+6. Buat _folder_ `fixtures` dan buat _file_ JSON yang memuat data _watchlist_. 
+
+```python
+[
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 1,
+        "fields": {
+            "watched": true,
+            "title": "Everything Everywhere All At Once",
+            "rating": 4.8,
+            "release_date": "June 22, 2022",
+            "review": "So far the best execution for a Multiverse theme. An emotional rollercoaster, with top notch humor and scenes that will make you cry multiple times. "
+        }
+    }
+]
+``` 
+Buat data seperti di atas untuk paling tidak 10 film.
+
+7. _Load_ data dengan _command_
+`python3 manage.py loaddata initial_mywatchlist_data.json`
+8. Buat fungsi dalam `views.py` untuk me-_render_ halaman web dengan data dan implementasikan juga fungsi untuk mengembalikan data dalam XML dan JSON.
+```python
+from django.shortcuts import render
+from mywatchlist.models import MyWatchlist
+from django.http import HttpResponse
+from django.core import serializers
+
+# Create your views here.
+def show_watchlist(request):
+    data_watchlist = MyWatchlist.objects.all()
+    context = { 
+        'list_item': data_watchlist,
+        'nama': 'Vladi Jingga Mentari',
+        'student_id': '2106635631'
+    }
+    return render(request, "mywatchlist.html", context)
+
+def show_xml(request):
+    data = MyWatchlist.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = MyWatchlist.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+9. Buat folder _templates_ dan _file_ HTML di dalam folder tersebut, lalu isi sesuai dengan _fields_ yang telah dibuat di [models.py]
+```python3
+{% extends 'base.html' %}
+
+ {% block content %}
+
+  <h1>Assignment 3 PBP/PBD</h1>
+
+  <h5>Name: </h5>
+  <p>{{nama}}</p>
+
+  <h5>Student ID: </h5>
+  <p>{{student_id}}</p>
+
+  <table>
+    <tr>
+      <th>Watched</th>
+      <th>Title</th>
+      <th>Rating</th>
+      <th>Release Date</th>
+      <th>Review</th>
+
+    </tr>
+    {% comment %} Add the data below this line {% endcomment %}
+    {% for item in list_item %}
+    <tr>
+        <th>{{item.watched}}</th>
+        <th>{{item.title}}</th>
+        <th>{{item.rating}}</th>
+        <th>{{item.release_date}}</th>
+        <th>{{item.review}}</th>
+    </tr>
+    {% endfor %}
+  </table>
+
+ {% endblock content %}
+```
+10. Implementasi _routing_ URL dalam [mywatchlist/urls.py] untuk tiap path HTML, JSON, dan XML dan masukkan fungsi yang dibuat di views.py pada tiap _path_.
+```python
+    path('html/', show_watchlist, name='show_watchlist'),
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+ ```
+ 11. Deploy dengan melakukan `git add`, `commit`, dan `push`.
+
+## Screenshot dari Postman
+<img width="1434" alt="Screen Shot 2022-09-22 at 11 36 54" src="https://user-images.githubusercontent.com/52811288/191659412-b97f4b74-1ce5-452e-b39d-672d83217752.png">
+<img width="1440" alt="Screen Shot 2022-09-22 at 11 37 23" src="https://user-images.githubusercontent.com/52811288/191659458-d8ada279-ad6e-422a-845a-6977fcafed5d.png"><img width="1435" alt="Screen Shot 2022-09-22 at 11 37 48" src="https://user-images.githubusercontent.com/52811288/191659495-a61610ae-814a-4286-9e3d-6cc8d2cba915.png">
