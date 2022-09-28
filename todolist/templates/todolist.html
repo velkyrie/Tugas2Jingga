@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to {{user}}'s To-Do List</h1>
+<button><a href="{% url 'todolist:create_task' %}">Add a New Task</a></button>
+<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+
+<table>
+    <tr>
+    <th>Date</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th>Deletion</th>
+    <th></th>
+    <th></th>
+    </tr>
+    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+    {% for todolist in list_todo %}
+        <tr>
+            <th>{{todolist.date}}</th>
+            <th>{{todolist.title}}</th>
+            <th>{{todolist.description}}</th>
+            <th>
+                {% if todolist.is_finished %}
+                <input type="checkbox" name="check" onclick="location.href=`{% url 'todolist:update_task' todolist.id %}`" checked/>
+                Finished
+                {% else %}
+                <input type="checkbox" name="check" onclick="location.href=`{% url 'todolist:update_task' todolist.id %}`"/>
+                Unfinished
+                {% endif %}
+            </th>
+            <th><button><a href="{% url 'todolist:delete_task' todolist.id %}">Delete Task</a></button></th>
+            
+        </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock content %}
+Footer

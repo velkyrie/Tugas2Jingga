@@ -22,7 +22,13 @@
     {% comment %} Add the data below this line {% endcomment %}
     {% for item in list_item %}
     <tr>
-        <th>{{item.watched}}</th>
+        <th>
+            {% if item.watched %}
+            <p></p>
+            {% else %}
+            <img src="https://cdn.discordapp.com/attachments/1009760771451912235/1022026158428135444/unknown_3.png"/>
+            {% endif %}
+          </th>
         <th>{{item.title}}</th>
         <th>{{item.rating}}</th>
         <th>{{item.release_date}}</th>
