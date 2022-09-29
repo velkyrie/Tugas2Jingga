@@ -7,11 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   {% block meta %}
   {% endblock meta %}
 </head>
-
+<style>
+  body {
+  font-family: "Lato", sans-serif;
+  }
+</style>
 <body>
   {% block content %}
   {% endblock content %}

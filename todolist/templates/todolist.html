@@ -2,9 +2,6 @@
 
 {% block content %}
 <h1>Welcome to {{user}}'s To-Do List</h1>
-<button><a href="{% url 'todolist:create_task' %}">Add a New Task</a></button>
-<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
-
 <table>
     <tr>
     <th>Date</th>
@@ -35,6 +32,9 @@
         </tr>
     {% endfor %}
 </table>
+<br>
+<button><a href="{% url 'todolist:create_task' %}">Add a New Task</a></button>
+<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
 
 {% endblock content %}
