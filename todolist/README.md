@@ -12,7 +12,7 @@ membuat user melakukan _action_ yang tidak terduga dan tidak diinginkan. Akan te
 <img width="794" alt="Screen Shot 2022-09-29 at 10 28 47" src="https://user-images.githubusercontent.com/52811288/192932295-730af3fe-734d-4cea-b643-34ef311e6180.png">
 
 
-### Elemen <form> secara manual?
+### Elemen `<form>` secara manual?
 Kita dapat membuat elemen <form> secara manual tanpa menggunakan _generator_ seperti {{ form.as_table }}.
 Karena pada umumnya form terdiri dari label dan input, kita bisa memanfaatkan tag yang sudah ada di HTML yaitu `<label>` dan `<input>`. 
 ```html
