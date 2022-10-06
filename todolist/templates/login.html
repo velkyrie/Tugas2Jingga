@@ -5,42 +5,52 @@
 {% endblock meta %}
 
 {% block content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-glass text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <form method="POST" action="">
+                            {% csrf_token %}
 
-<div class = "login">
+                        <div class="mb-md-5 mt-md-2 pb-5">
+                            <h1 class="custom-title"> to-do; </h1>
+                            <p class="text-white-50 mb-md-4">login or register to proceed</p>
 
-    <h1>Create Your Own To-Do List</h1>
-    <h3>Please login to proceed</h3>
+                            <div class="form mb-4">
+                                <input type="text" name="username" placeholder="Username" class="form-control">
+                            </div>
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+                            <div class="form mb-4 mt-md-2">
+                                <input type="password" name="password" placeholder="Password" class="form-control">
+                            </div>
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+                        </div>
+                        <div>
+                            <p class="mb-0">Don't have an account? <a href="{% url 'todolist:register' %}"
+                                    class="link-primary bold">Sign Up</a>
+                            </p>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    No account yet? <a href="{% url 'todolist:register' %}">Create an Account</a>
 
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 </div>
+</body>
+
 
 {% endblock content %}

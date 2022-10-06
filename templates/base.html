@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,12 +14,92 @@
   {% endblock meta %}
 </head>
 <style>
-  body {
-  font-family: "Lato", sans-serif;
+  body{
+    background-color: rgb(0, 0, 0);
+        background-image:
+            radial-gradient(at 78% 0%, rgb(110, 101, 89) 0px, transparent 50%),
+            radial-gradient(at 100% 90%, rgb(155, 80, 104) 0px, transparent 50%),
+            radial-gradient(at 55% 5%, rgb(0, 0, 0) 0px, transparent 50%),
+            radial-gradient(at 97% 92%, rgb(70, 16, 54) 0px, transparent 50%),
+            radial-gradient(at 95% 0%, rgb(0, 8, 97) 0px, transparent 50%),
+            radial-gradient(at 9% 95%, rgb(8, 28, 24) 0px, transparent 50%),
+            radial-gradient(at 49% 84%, rgb(140, 102, 49) 0px, transparent 50%);
   }
+    .gradient-custom {
+        background-color: rgb(0, 0, 0);
+        background-image:
+            radial-gradient(at 78% 0%, rgb(110, 101, 89) 0px, transparent 50%),
+            radial-gradient(at 100% 90%, rgb(155, 80, 104) 0px, transparent 50%),
+            radial-gradient(at 55% 5%, rgb(0, 0, 0) 0px, transparent 50%),
+            radial-gradient(at 97% 92%, rgb(70, 16, 54) 0px, transparent 50%),
+            radial-gradient(at 95% 0%, rgb(0, 8, 97) 0px, transparent 50%),
+            radial-gradient(at 9% 95%, rgb(8, 28, 24) 0px, transparent 50%),
+            radial-gradient(at 49% 84%, rgb(140, 102, 49) 0px, transparent 50%);
+    }
+
+
+    .bg-glass {
+        background: rgba(255, 255, 255, 0.15) !important;
+        /* box-shadow: 0 8px 32px 0 rgba(32, 21, 35, 0.37); */
+        backdrop-filter: blur(9px);
+        -webkit-backdrop-filter: blur(9px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: 0.2s;
+
+    }
+
+    .card-todo {
+        background: rgba(255, 255, 255, 0.15) !important;
+        /* box-shadow: 0 8px 32px 0 rgba(32, 21, 35, 0.37); */
+        backdrop-filter: blur(9px);
+        -webkit-backdrop-filter: blur(9px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: -0.5;
+        width: 30rem;
+        max-height: 18rem;
+        transition: 0.2s;
+
+    }
+
+    .bg-glass:hover {
+        box-shadow: 0 8px 32px 0 rgba(32, 21, 35, 0.37);
+    }
+
+    .custom-title {
+        font-size: 100px;
+        color: rgba(255, 255, 255, .5);
+        line-height: 90%;
+
+    }
+
+    .form-outline {
+        border: none !important;
+        background-color: none !important;
+        color: white;
+        border-bottom: 2px solid white;
+
+    }
+
+    .link-primary{
+        color:white !important;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .link-primary:hover{
+        color:white !important;
+        text-decoration: underline;
+        text-shadow: 0px 2px 9px rgba(255, 246, 251, 0.50);
+
+    }
+
 </style>
 <body>
   {% block content %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   {% endblock content %}
 </body>
 
