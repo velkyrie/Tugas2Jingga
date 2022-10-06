@@ -62,6 +62,6 @@ class Task(models.Model):
 JinggaDjango
 mentari123
 
-VladiDjango
-casajasmine17
+vladi
+jingga123
  ```
