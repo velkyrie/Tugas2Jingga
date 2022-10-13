@@ -7,18 +7,21 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.core import serializers
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
+
+
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    data_todolist = Task.objects.filter(user=request.user)
     context = {
-        'list_todo': data_todolist,
         'user': request.user,
     }
     return render(request, 'todolist.html', context)
+
 
 def register(request):
     form = UserCreationForm()
@@ -29,9 +32,10 @@ def register(request):
             form.save()
             messages.success(request, 'Akun telah berhasil dibuat!')
             return redirect('todolist:login')
-    
-    context = {'form':form}
+
+    context = {'form': form}
     return render(request, 'register.html', context)
+
 
 def login_user(request):
     if request.method == 'POST':
@@ -39,14 +43,17 @@ def login_user(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("todolist:show_todolist")) # membuat response
-            response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+            login(request, user)  # melakukan login terlebih dahulu
+            response = HttpResponseRedirect(
+                reverse("todolist:show_todolist"))  # membuat response
+            # membuat cookie last_login dan menambahkannya ke dalam response
+            response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
             messages.info(request, 'Username atau Password salah!')
     context = {}
     return render(request, 'login.html', context)
+
 
 def logout_user(request):
     logout(request)
@@ -54,18 +61,31 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+
+@csrf_exempt
 @login_required(login_url='/todolist/login/')
 def create_task(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
-        
-        if title != "" and description != "":
-            Task.objects.create(user=request.user, title=title, description=description, is_finished=False, date=datetime.datetime.today())
-            return HttpResponseRedirect(reverse("todolist:show_todolist"))
-        else:
-            messages.info(request, 'Task Title and Description Cannot Be Empty!')
-    return render(request, 'create_task.html')
+        todo = Task.objects.create(
+            user=request.user,
+            title=title,
+            description=description,
+            is_finished=False,
+            date=datetime.datetime.today())
+        return JsonResponse(
+            {
+                'pk': todo.id,
+                'fields': {
+                    'title': todo.title,
+                    'description': todo.description,
+                    'is_finished': todo.is_finished,
+                    'date': todo.date,
+                },
+            },
+            status=200,
+        )
 
 @login_required(login_url='/todolist/login/')
 def update_task(request, id):
@@ -74,8 +94,15 @@ def update_task(request, id):
     todo.save()
     return redirect('todolist:show_todolist')
 
+
 @login_required(login_url='/todolist/login/')
 def delete_task(request, id):
     todo = Task.objects.get(user=request.user, id=id)
     todo.delete()
     return redirect('todolist:show_todolist')
+
+
+@login_required(login_url='/todolist/login/')
+def get_todo_json(request):
+    todo = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", todo), content_type="application/json")

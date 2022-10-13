@@ -3,29 +3,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  {% block meta %}
-  {% endblock meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {% block meta %}
+    {% endblock meta %}
 </head>
 <style>
-  body{
-    background-color: rgb(0, 0, 0);
-        background-image:
-            radial-gradient(at 78% 0%, rgb(110, 101, 89) 0px, transparent 50%),
-            radial-gradient(at 100% 90%, rgb(155, 80, 104) 0px, transparent 50%),
-            radial-gradient(at 55% 5%, rgb(0, 0, 0) 0px, transparent 50%),
-            radial-gradient(at 97% 92%, rgb(70, 16, 54) 0px, transparent 50%),
-            radial-gradient(at 95% 0%, rgb(0, 8, 97) 0px, transparent 50%),
-            radial-gradient(at 9% 95%, rgb(8, 28, 24) 0px, transparent 50%),
-            radial-gradient(at 49% 84%, rgb(140, 102, 49) 0px, transparent 50%);
-  }
-    .gradient-custom {
+    body {
         background-color: rgb(0, 0, 0);
         background-image:
             radial-gradient(at 78% 0%, rgb(110, 101, 89) 0px, transparent 50%),
@@ -35,8 +30,15 @@
             radial-gradient(at 95% 0%, rgb(0, 8, 97) 0px, transparent 50%),
             radial-gradient(at 9% 95%, rgb(8, 28, 24) 0px, transparent 50%),
             radial-gradient(at 49% 84%, rgb(140, 102, 49) 0px, transparent 50%);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 
+    .bg-modal-fade {
+        background-color: rgb(0, 0, 0, 0.15);
+        backdrop-filter: blur(9px);
+        -webkit-backdrop-filter: blur(9px);
+    }
 
     .bg-glass {
         background: rgba(255, 255, 255, 0.15) !important;
@@ -67,12 +69,12 @@
         box-shadow: 0 8px 32px 0 rgba(147, 137, 150, 0.37);
     }
 
-    .navbar-brand{
+    .navbar-brand {
         transition: 0.2s;
     }
 
-    .navbar-brand:hover{
-        color:white !important;
+    .navbar-brand:hover {
+        color: white !important;
         text-decoration: underline;
         text-shadow: 0px 2px 9px rgba(255, 246, 251, 0.50);
     }
@@ -96,25 +98,27 @@
 
     }
 
-    .link-primary{
-        color:white !important;
+    .link-primary {
+        color: white !important;
         font-weight: 700;
         text-decoration: none;
         transition: 0.2s;
     }
 
-    .link-primary:hover{
-        color:white !important;
+    .link-primary:hover {
+        color: white !important;
         text-decoration: underline;
         text-shadow: 0px 2px 9px rgba(255, 246, 251, 0.50);
 
     }
-
 </style>
+
 <body>
-  {% block content %}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-  {% endblock content %}
+    {% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    {% endblock content %}
 </body>
 
 </html>
