@@ -17,11 +17,9 @@
     <div class="container-md h-100 overflow-auto justify-content-center align-items-center" id="mainBody">
     </div>
 
-    <div class="card-todo mb-5 text-white container-fluid" style="border-radius: 1rem;">
         <div class="card-body p-2 text-center">
-            <h1><a class="link-primary" data-toggle="modal" data-target="#myModal">+ Add</a></h1>
+            <button class="card-todo sm-2 mb-3 text-white container-sm"><h1><a class="link-primary" data-toggle="modal" data-target="#myModal">+ add</a></h1></button>
         </div>
-    </div>
 
 
     <div class="modal fade bg-modal-fade" id="myModal" data-keyboard="false" tabindex="-1" aria-labelledby="myModal"
@@ -93,7 +91,7 @@
 
         const getTodo = () => {
             $.get("{% url 'todolist:get_todo_json' %}", data => {
-                $.each(data, (e, value) => {
+                $.each(data, (i, value) => {
                     $("#mainBody").append(card(value));
                 });
             });

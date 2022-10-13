@@ -73,7 +73,7 @@ def create_task(request):
             title=title,
             description=description,
             is_finished=False,
-            date=datetime.datetime.today())
+            date=datetime.datetime.now())
         return JsonResponse(
             {
                 'pk': todo.id,
