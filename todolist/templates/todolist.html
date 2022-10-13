@@ -69,7 +69,7 @@
                     <section class="overflow-auto" id="${todo.pk}">
 
                             <div class="container-fluid card-todo text-white p-4 md-2">
-                                <div class="card-body p-1">
+                                <div class="card-body p-1 text">
 
                                     ${todo.fields.is_finished ? `<span class="badge rounded-pill bg-success">Done</span> 
                                     <small class="text-white-50"> ${todo.fields.date}<br></small>
@@ -118,7 +118,7 @@
 
             if (title && description) {
                 e.preventDefault();
-                
+
                 $.ajax({
                     type: "POST",
                     url: "{% url 'todolist:create_task' %}",
